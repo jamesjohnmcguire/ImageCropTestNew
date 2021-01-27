@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+	xmlns:imgcrop="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.ImageCropView"
+	xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+	xmlns:vm="clr-namespace:ImageTest.ViewModels"
+	x:Class="ImageTest.Views.ImageCropViewExample">
+
+	<ContentPage.BindingContext>
+		<vm:ImageCropViewExampleModel />
+	</ContentPage.BindingContext>
+	<StackLayout>
+		<imgcrop:ImageCropView x:Name="picture"
+								VerticalOptions="Center"
+								HorizontalOptions="Center"
+								HeightRequest="80" WidthRequest="80"
+			Source="http://photos2.insidercdn.com/iphone4scamera-111004-full.JPG"
+							   >
+			<imgcrop:ImageCropView.PreviewTransformations>
+				<fftransformations:CircleTransformation />
+			</imgcrop:ImageCropView.PreviewTransformations>
+		</imgcrop:ImageCropView>
+
+		<!--Image HeightRequest="300" WidthRequest="300" x:Name="tester"
+			Source="http://photos2.insidercdn.com/iphone4scamera-111004-full.JPG"/>
+		<Label HorizontalTextAlignment="Center" Text="Image!"/-->
+
+		<imgcrop:ImageCropView
+			HeightRequest="300" WidthRequest="300"
+			x:Name="cropView"
+			PreviewTransformations="{Binding PreviewTransformations}"
+			Source="http://photos2.insidercdn.com/iphone4scamera-111004-full.JPG"/>
+			
+		<Label HorizontalTextAlignment="Center" Text="Source file resolution is 3264 × 2448 pixels!"/>
+
+		<StackLayout Orientation="Horizontal">
+			<Button HorizontalOptions="FillAndExpand" x:Name="rotateButton" Text="Rotate" Command="{Binding RotateCommand}"/>
+			<Button HorizontalOptions="FillAndExpand" x:Name="saveButton" Text="Save"/>
+		</StackLayout>
+			
+		<ffimageloading:CachedImage HorizontalOptions="Center" HeightRequest="100" WidthRequest="100" Aspect="Fill" Source="{Binding SavedImage}"/>
+				
+	</StackLayout>
+</ContentPage>
